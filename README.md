@@ -4,11 +4,11 @@ A fucking **static media gallery** na ginawa gamit lang ang **HTML, CSS, at Vani
 
 Walang backend. Walang database. Walang build system. Walang kung anong unnecessary bullshit.
 
-Maglagay ka lang ng images, GIFs, videos, at audio sa `media/`, generate ng manifest, tapos boom, gallery na.
+Maglagay ka lang ng images, GIFs, videos, at audio sa `media/` or mag attach ka nignog.
 
 ## 🟢 Project Status
 
-**ACTIVE**
+**ACTIVE / STILL ALIVE**
 
 Click Me: https://lilbuffy.github.io/Galleryshit/
 
