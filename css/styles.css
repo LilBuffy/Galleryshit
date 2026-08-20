@@ -1,3 +1,4 @@
+/* ================= Tokens ================= */
 :root{
   --bg:#0a0a0b;
   --surface:#141416;
@@ -193,6 +194,24 @@ code{font-family:var(--font-mono);background:var(--surface-3);padding:1px 5px;bo
 .empty-state p{font-size:13.5px;max-width:340px;line-height:1.5;}
 .empty-state .btn-primary{margin-top:6px;}
 
+/* ================= Drag & drop overlay ================= */
+.drag-overlay{
+  position:fixed;inset:0;z-index:200;background:rgba(8,8,9,.86);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;
+  transition:opacity .2s var(--ease);
+}
+.drag-overlay.show{opacity:1;pointer-events:all;}
+.drag-frame{position:relative;width:min(560px,80vw);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.drag-frame::before,.drag-frame::after{content:'';position:absolute;width:46px;height:46px;border-color:#fff;}
+.drag-frame::before{top:0;left:0;border-top:2px solid #fff;border-left:2px solid #fff;border-radius:10px 0 0 0;}
+.drag-frame::after{bottom:0;right:0;border-bottom:2px solid #fff;border-right:2px solid #fff;border-radius:0 0 10px 0;}
+.corner-tr{position:absolute;top:0;right:0;width:46px;height:46px;border-top:2px solid #fff;border-right:2px solid #fff;border-radius:0 10px 0 0;}
+.corner-bl{position:absolute;bottom:0;left:0;width:46px;height:46px;border-bottom:2px solid #fff;border-left:2px solid #fff;border-radius:0 0 0 10px;}
+.drag-frame svg{width:40px;height:40px;color:#fff;animation:floatY 1.6s ease-in-out infinite;}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.drag-frame p{font-family:var(--font-display);font-size:18px;font-weight:600;color:#fff;}
+.drag-frame span{font-family:var(--font-mono);font-size:11.5px;color:#a9a9ad;}
+
 /* ================= Lightbox ================= */
 .lightbox{
   position:fixed;inset:0;z-index:300;background:rgba(6,6,7,.97);display:flex;flex-direction:column;
@@ -280,17 +299,6 @@ code{font-family:var(--font-mono);background:var(--surface-3);padding:1px 5px;bo
 .pill.active{background:var(--surface-3);color:var(--text);}
 .settings-section-label{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin:22px 0 10px;}
 .settings-section-label:first-child{margin-top:0;}
-
-.howto-intro{font-size:13.5px;color:var(--text-dim);line-height:1.6;margin-bottom:16px;}
-.howto-steps{list-style:none;counter-reset:step;display:flex;flex-direction:column;gap:14px;margin-bottom:18px;}
-.howto-steps li{
-  counter-increment:step;position:relative;padding-left:34px;font-size:13px;color:var(--text);line-height:1.5;
-}
-.howto-steps li::before{
-  content:counter(step);position:absolute;left:0;top:-1px;width:22px;height:22px;border-radius:50%;
-  background:var(--surface-3);color:var(--text-dim);font-family:var(--font-mono);font-size:11px;
-  display:flex;align-items:center;justify-content:center;
-}
 
 /* ================= Confirm modal ================= */
 .confirm-modal{

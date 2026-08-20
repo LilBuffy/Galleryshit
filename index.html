@@ -27,8 +27,6 @@
     </div>
     <div class="topbar-actions">
       <select id="sortSelect" class="sort-select">
-        <option value="date-desc">Newest first</option>
-        <option value="date-asc">Oldest first</option>
         <option value="name-asc">Name A–Z</option>
         <option value="name-desc">Name Z–A</option>
         <option value="size-desc">Largest first</option>
@@ -37,10 +35,11 @@
       <button class="icon-btn" id="settingsBtn" aria-label="Settings">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       </button>
-      <button class="btn-primary" id="addMediaBtn">
+      <button class="btn-primary" id="addFilesBtn">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
-        Add media
+        Add files
       </button>
+      <input type="file" id="fileInput" accept="image/*,video/*,audio/*" multiple hidden>
     </div>
   </header>
 
@@ -86,8 +85,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         </div>
         <h2>No media yet</h2>
-        <p>Drop image, video, GIF, or audio files into the <code>media</code> folder, then regenerate the manifest.</p>
-        <button class="btn-primary" id="emptyAddMediaBtn">How to add media</button>
+        <p id="emptyLibraryText">Drag and drop files here, or use Add files. To publish media for everyone, add it to the <code>media</code> folder in your repository.</p>
+        <button class="btn-primary" id="emptyAddFilesBtn">Add files</button>
       </div>
       <div class="empty-state hidden" id="emptyResults">
         <div class="empty-icon">
@@ -96,15 +95,17 @@
         <h2>No matches</h2>
         <p>Nothing matches your current search or filter. Try adjusting them.</p>
       </div>
-      <div class="empty-state hidden" id="loadError">
-        <div class="empty-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
-        </div>
-        <h2>Manifest not found</h2>
-        <p>Couldn't load <code>media/manifest.json</code>. If you're browsing locally, serve the folder with a local server instead of opening the file directly.</p>
-      </div>
       <div class="gallery-grid" id="galleryGrid"></div>
     </main>
+  </div>
+</div>
+
+<div class="drag-overlay" id="dragOverlay">
+  <div class="drag-frame">
+    <span class="corner-tr"></span><span class="corner-bl"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+    <p>Drop to add</p>
+    <span>Images · Videos · GIFs · Audio</span>
   </div>
 </div>
 
@@ -122,9 +123,7 @@
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
       </button>
       <span class="lb-sep"></span>
-      <button data-action="hide" aria-label="Hide">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a21.6 21.6 0 015.06-6.06M9.9 4.24A10.4 10.4 0 0112 4c7 0 11 8 11 8a21.6 21.6 0 01-2.6 3.79M14.12 14.12a3 3 0 11-4.24-4.24"/><path d="M1 1l22 22"/></svg>
-      </button>
+      <button data-action="remove" id="lbRemoveBtn" aria-label="Remove"></button>
       <button data-action="close" aria-label="Close">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -172,34 +171,21 @@
 
     <div class="settings-section-label">Behavior</div>
     <div class="setting-row">
-      <div class="setting-text"><h3>Confirm before hiding</h3><p>Ask before hiding a file from view.</p></div>
-      <button class="switch on" id="toggleConfirmHide"></button>
+      <div class="setting-text"><h3>Confirm before removing</h3><p>Ask before hiding or deleting a file.</p></div>
+      <button class="switch on" id="toggleConfirmRemove"></button>
     </div>
     <div class="setting-row">
-      <div class="setting-text"><h3>Hidden files</h3><p id="hiddenCountText">0 hidden on this device</p></div>
+      <div class="setting-text"><h3>Hidden repository files</h3><p id="hiddenCountText">0 hidden on this device</p></div>
       <button class="btn" id="restoreHiddenBtn" style="flex:none;padding:8px 14px;">Restore all</button>
     </div>
 
     <div class="settings-section-label">Library</div>
     <div class="setting-row">
-      <div class="setting-text"><h3>Files in manifest</h3><p id="statItemCount">0 files</p></div>
+      <div class="setting-text"><h3>Repository files</h3><p id="statRepoCount">0 files</p></div>
     </div>
     <div class="setting-row">
-      <div class="setting-text"><h3>Total size</h3><p id="statSpaceUsed">0 B</p></div>
+      <div class="setting-text"><h3>Local files (this browser)</h3><p id="statLocalCount">0 files</p></div>
     </div>
-  </div>
-</div>
-
-<div class="side-panel" id="addMediaPanel">
-  <div class="panel-header"><h2>Add media</h2><button class="icon-btn panel-close" data-panel="addMedia"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
-  <div class="panel-body">
-    <p class="howto-intro">This gallery reads directly from the <code>media/</code> folder — there's no upload button because there's no server to upload to. To add files:</p>
-    <ol class="howto-steps">
-      <li>Copy your images, videos, GIFs, or audio files into the <code>media/</code> folder.</li>
-      <li>Run <code>node scripts/generate-manifest.js</code> to rebuild <code>media/manifest.json</code>.</li>
-      <li>Refresh the page. If you're on GitHub Pages, just commit and push — the included workflow regenerates the manifest and redeploys automatically.</li>
-    </ol>
-    <p class="howto-intro">Supported: JPG, PNG, WebP, AVIF, BMP, SVG, GIF, MP4, WebM, MOV, OGG, MP3, WAV, M4A, FLAC.</p>
   </div>
 </div>
 
