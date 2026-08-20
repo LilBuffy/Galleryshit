@@ -12,7 +12,7 @@ Maglagay ka lang ng images, GIFs, videos, at audio sa `media/`, generate ng mani
 
 **ACTIVE**
 
-Click Me: fuckyou just wait.
+Click Me: https://lilbuffy.github.io/Galleryshit/
 
 Personal project ito para sa isang clean at dark themed media gallery.
 
