@@ -1,4 +1,4 @@
-# 🖼️ Niggallery
+# 🖼️ Nigallery
 
 A fucking **static media gallery** built with **HTML, CSS, and Vanilla JavaScript**.
 
@@ -8,7 +8,7 @@ No backend. No database. No unnecessary bullshit. **Just media and UI. БЛЯТ�
 
 **ACTIVE / STILL ALIVE**
 
-CLICK ME: https://lilbuffy.github.io/Niggallery/
+CLICK ME: https://lilbuffy.github.io/Nigallery/
 
 🚨 YOUR ANTIVIRUS MIGHT THINK THIS IS A DANGEROUS WEBSITE, BUT I SWEAR I'M NOT A FUCKING HACKER. 🚨
 
