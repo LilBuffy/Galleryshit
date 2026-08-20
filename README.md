@@ -6,8 +6,6 @@ Walang backend. Walang database. Walang build system. Walang kung anong unnecess
 
 Maglagay ka lang ng images, GIFs, videos, at audio sa `media/`, generate ng manifest, tapos boom, gallery na.
 
-**BLYAAAAT. Simple.**
-
 ## 🟢 Project Status
 
 **ACTIVE**
