@@ -4,7 +4,7 @@ A fucking **static media gallery** built with **HTML, CSS, and Vanilla JavaScrip
 
 No backend. No database. No unnecessary bullshit. **Just media and UI. БЛЯТЬ.**
 
-## 🟢 PROJECT STATUS
+## 🟢 Project Status
 
 **ACTIVE / STILL ALIVE**
 
