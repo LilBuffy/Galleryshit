@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gallery</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0b'/%3E%3Cpath d='M16 6l6 10-6 10-6-10z' fill='%23f2f2f0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="7" fill="#fff"/><path d="M16 6l6 10-6 10-6-10z" fill="#0a0a0b"/></svg>
+      <h1>Gallery</h1>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="searchInput" type="text" placeholder="search files…" autocomplete="off">
+      <button class="icon-btn search-clear" id="searchClearBtn" aria-label="Clear search" style="width:22px;height:22px;">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="topbar-actions">
+      <select id="sortSelect" class="sort-select">
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="name-asc">Name A–Z</option>
+        <option value="name-desc">Name Z–A</option>
+        <option value="size-desc">Largest first</option>
+        <option value="size-asc">Smallest first</option>
+      </select>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      </button>
+      <button class="btn-primary" id="addMediaBtn">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+        Add media
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="filters" id="filterNav">
+        <span class="filter-group-label">Library</span>
+        <button class="filter-chip active" data-filter="all">
+          <span class="fc-left"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</span>
+          <span class="count" data-count="all">0</span>
+        </button>
+        <button class="filter-chip" data-filter="image">
+          <span class="fc-left"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Images</span>
+          <span class="count" data-count="image">0</span>
+        </button>
+        <button class="filter-chip" data-filter="video">
+          <span class="fc-left"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M22 8l-5 4 5 4V8z"/></svg>Videos</span>
+          <span class="count" data-count="video">0</span>
+        </button>
+        <button class="filter-chip" data-filter="gif">
+          <span class="fc-left"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9v6M11 9v6M11 12h2.5M17 9v3a1.5 1.5 0 01-1.5 1.5V13.5"/></svg>GIFs</span>
+          <span class="count" data-count="gif">0</span>
+        </button>
+        <button class="filter-chip" data-filter="audio">
+          <span class="fc-left"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Audio</span>
+          <span class="count" data-count="audio">0</span>
+        </button>
+        <div class="filter-divider"></div>
+        <button class="filter-chip" data-filter="favorites">
+          <span class="fc-left"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 17.3l-6.16 3.6 1.64-6.99-5.36-4.64 7.06-.6L12 2l2.82 6.67 7.06.6-5.36 4.64 1.64 6.99z"/></svg>Favorites</span>
+          <span class="count" data-count="favorites">0</span>
+        </button>
+      </nav>
+      <div class="storage-meter">
+        <div class="meter-label">Library</div>
+        <div class="meter-text" id="meterText">0 files · 0 B</div>
+      </div>
+    </aside>
+
+    <main class="gallery-main" id="galleryMain">
+      <div class="empty-state hidden" id="emptyLibrary">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <h2>No media yet</h2>
+        <p>Drop image, video, GIF, or audio files into the <code>media</code> folder, then regenerate the manifest.</p>
+        <button class="btn-primary" id="emptyAddMediaBtn">How to add media</button>
+      </div>
+      <div class="empty-state hidden" id="emptyResults">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <h2>No matches</h2>
+        <p>Nothing matches your current search or filter. Try adjusting them.</p>
+      </div>
+      <div class="empty-state hidden" id="loadError">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+        </div>
+        <h2>Manifest not found</h2>
+        <p>Couldn't load <code>media/manifest.json</code>. If you're browsing locally, serve the folder with a local server instead of opening the file directly.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </main>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <div class="lb-top">
+    <span class="lb-filename" id="lbFilename"></span>
+    <div class="lb-actions">
+      <button data-action="favorite" id="lbFavBtn" aria-label="Toggle favorite">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 17.3l-6.16 3.6 1.64-6.99-5.36-4.64 7.06-.6L12 2l2.82 6.67 7.06.6-5.36 4.64 1.64 6.99z"/></svg>
+      </button>
+      <button data-action="info" aria-label="Details">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </button>
+      <button data-action="download" aria-label="Download">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      </button>
+      <span class="lb-sep"></span>
+      <button data-action="hide" aria-label="Hide">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a21.6 21.6 0 015.06-6.06M9.9 4.24A10.4 10.4 0 0112 4c7 0 11 8 11 8a21.6 21.6 0 01-2.6 3.79M14.12 14.12a3 3 0 11-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+      </button>
+      <button data-action="close" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="lb-stage-wrap">
+    <button class="lb-nav lb-prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="lb-stage" id="lbStage"></div>
+    <button class="lb-nav lb-next" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+  <div class="lb-filmstrip-wrap">
+    <div class="lb-filmstrip" id="lbFilmstrip"></div>
+  </div>
+</div>
+
+<div class="side-panel" id="infoPanel">
+  <div class="panel-header"><h2>Details</h2><button class="icon-btn panel-close" data-panel="info"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+  <div class="panel-body" id="infoBody"></div>
+</div>
+
+<div class="side-panel" id="settingsPanel">
+  <div class="panel-header"><h2>Settings</h2><button class="icon-btn panel-close" data-panel="settings"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+  <div class="panel-body">
+    <div class="settings-section-label">Appearance</div>
+    <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:10px;">
+      <div class="setting-text"><h3>Thumbnail size</h3><p>Controls how many items fit per row.</p></div>
+      <div class="pill-group" id="thumbSizeGroup">
+        <button class="pill" data-size="140">Small</button>
+        <button class="pill active" data-size="190">Medium</button>
+        <button class="pill" data-size="260">Large</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <div class="setting-text"><h3>Autoplay previews</h3><p>Play video thumbnails on hover.</p></div>
+      <button class="switch on" id="toggleAutoplay"></button>
+    </div>
+    <div class="setting-row">
+      <div class="setting-text"><h3>Reduce motion</h3><p>Minimize animations and transitions.</p></div>
+      <button class="switch" id="toggleMotion"></button>
+    </div>
+
+    <div class="settings-section-label">Behavior</div>
+    <div class="setting-row">
+      <div class="setting-text"><h3>Confirm before hiding</h3><p>Ask before hiding a file from view.</p></div>
+      <button class="switch on" id="toggleConfirmHide"></button>
+    </div>
+    <div class="setting-row">
+      <div class="setting-text"><h3>Hidden files</h3><p id="hiddenCountText">0 hidden on this device</p></div>
+      <button class="btn" id="restoreHiddenBtn" style="flex:none;padding:8px 14px;">Restore all</button>
+    </div>
+
+    <div class="settings-section-label">Library</div>
+    <div class="setting-row">
+      <div class="setting-text"><h3>Files in manifest</h3><p id="statItemCount">0 files</p></div>
+    </div>
+    <div class="setting-row">
+      <div class="setting-text"><h3>Total size</h3><p id="statSpaceUsed">0 B</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="side-panel" id="addMediaPanel">
+  <div class="panel-header"><h2>Add media</h2><button class="icon-btn panel-close" data-panel="addMedia"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+  <div class="panel-body">
+    <p class="howto-intro">This gallery reads directly from the <code>media/</code> folder — there's no upload button because there's no server to upload to. To add files:</p>
+    <ol class="howto-steps">
+      <li>Copy your images, videos, GIFs, or audio files into the <code>media/</code> folder.</li>
+      <li>Run <code>node scripts/generate-manifest.js</code> to rebuild <code>media/manifest.json</code>.</li>
+      <li>Refresh the page. If you're on GitHub Pages, just commit and push — the included workflow regenerates the manifest and redeploys automatically.</li>
+    </ol>
+    <p class="howto-intro">Supported: JPG, PNG, WebP, AVIF, BMP, SVG, GIF, MP4, WebM, MOV, OGG, MP3, WAV, M4A, FLAC.</p>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="confirm-modal" id="confirmModal">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Are you sure?</h3>
+    <p id="confirmMessage">This action cannot be undone.</p>
+    <div class="confirm-buttons">
+      <button class="confirm-cancel" id="confirmCancelBtn">Cancel</button>
+      <button class="confirm-ok" id="confirmOkBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>
