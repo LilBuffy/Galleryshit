@@ -1,4 +1,4 @@
-# 🖼️ Gallery
+# 🖼️ Niggallery
 
 A fucking **static media gallery** na ginawa gamit lang ang **HTML, CSS, at Vanilla JavaScript**.
 
@@ -10,7 +10,7 @@ Maglagay ka lang ng images, GIFs, videos, at audio sa `media/` or mag attach ka 
 
 **ACTIVE / STILL ALIVE**
 
-Click Me: https://lilbuffy.github.io/Galleryshit/
+Click Me: https://lilbuffy.github.io/Niggallery/
 
 Personal project ito para sa isang clean at dark themed media gallery.
 
