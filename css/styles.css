@@ -56,7 +56,7 @@ code{font-family:var(--font-mono);background:var(--surface-3);padding:1px 5px;bo
 .brand-mark{width:20px;height:20px;flex-shrink:0;}
 .brand h1{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;}
 .search-wrap{
-  flex:1;max-width:420px;display:flex;align-items:center;gap:10px;
+  flex:1;min-width:0;max-width:420px;display:flex;align-items:center;gap:10px;
   background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;
   transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease);
 }
@@ -117,7 +117,7 @@ code{font-family:var(--font-mono);background:var(--surface-3);padding:1px 5px;bo
 /* ================= Gallery ================= */
 .gallery-main{flex:1;overflow-y:auto;position:relative;}
 .gallery-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--thumb-size),1fr));
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(var(--thumb-size),calc(50% - 8px)),1fr));
   gap:16px;padding:22px;align-content:start;
 }
 .card{
@@ -223,6 +223,7 @@ code{font-family:var(--font-mono);background:var(--surface-3);padding:1px 5px;bo
 .lb-actions{display:flex;align-items:center;gap:6px;}
 .lb-actions button{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:background var(--dur) var(--ease),color var(--dur) var(--ease);}
 .lb-actions button:hover{background:var(--surface-2);color:var(--text);}
+.lb-actions button svg{width:17px;height:17px;}
 .lb-actions button.active svg{fill:#fff;color:#fff;}
 .lb-actions button[data-action="hide"]:hover{color:var(--danger);}
 .lb-actions .lb-sep{width:1px;height:20px;background:var(--border);margin:0 4px;}
